@@ -1,0 +1,60 @@
+﻿<Properties StartupConfiguration="{EE4E4AA7-C9A9-439B-BF28-C8A0933D26F8}|https">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="ECommerce/Dto/Auth/ResAuthDto.cs">
+    <Files>
+      <File FileName="ECommerce/Program.cs" Line="17" Column="43" />
+      <File FileName="ECommerce/Repositories/Order/IOrderRepository.cs" Line="4" Column="33" />
+      <File FileName="ECommerce/Services/Order/OrderService.cs" Line="26" Column="47" />
+      <File FileName="ECommerce/Dto/Order/OrderDto.cs" Line="4" Column="54" />
+      <File FileName="ECommerce/Services/Order/IOrderService.cs" Line="11" Column="2" />
+      <File FileName="ECommerce/Repositories/Order/OrderRepository.cs" Line="48" Column="2" />
+      <File FileName="ECommerce/Repositories/Product/IProductRepository.cs" Line="14" Column="2" />
+      <File FileName="ECommerce/Repositories/Product/ProductRepository.cs" Line="21" Column="18" />
+      <File FileName="ECommerce/Dto/Auth/AuthDto.cs" Line="4" Column="46" />
+      <File FileName="ECommerce/Dto/Auth/ResAuthDto.cs" Line="4" Column="22" />
+      <File FileName="ECommerce/Dto/Product/ProductDto.cs" Line="4" Column="89" />
+      <File FileName="ECommerce/Dto/Product/UpdateProductDto.cs" Line="4" Column="1" />
+      <File FileName="ECommerce/Dto/Shared/ResMutationDto.cs" Line="4" Column="59" />
+      <File FileName="ECommerce/Dto/Shared/ResQueryDto.cs" Line="4" Column="51" />
+      <File FileName="ECommerce/Dto/User/UserDto.cs" Line="4" Column="89" />
+      <File FileName="ECommerce/Repositories/User/IUserRepository.cs" Line="11" Column="2" />
+      <File FileName="ECommerce/Repositories/User/UserRepository.cs" Line="29" Column="46" />
+      <File FileName="ECommerce/Services/Auth/AuthService.cs" Line="15" Column="6" />
+      <File FileName="ECommerce/Services/Auth/IAuthService.cs" Line="9" Column="2" />
+      <File FileName="ECommerce/Services/Product/IProductService.cs" Line="14" Column="2" />
+      <File FileName="ECommerce/Services/Product/ProductService.cs" Line="80" Column="2" />
+      <File FileName="ECommerce/Services/User/IUserService.cs" Line="12" Column="2" />
+      <File FileName="ECommerce/Services/User/UserService.cs" Line="62" Column="2" />
+      <File FileName="ECommerce/DataAccess/DatabaseContext.cs" Line="42" Column="2" />
+      <File FileName="ECommerce/Helpers/HashHandler.cs" Line="40" Column="2" />
+      <File FileName="ECommerce/Exceptions/RequestProblemException.cs" Line="24" Column="2" />
+      <File FileName="ECommerce/Exceptions/NotFoundException.cs" Line="7" Column="2" />
+      <File FileName="ECommerce/Exceptions/InvalidCredentialException.cs" Line="7" Column="2" />
+      <File FileName="ECommerce/Exceptions/ConflictException.cs" Line="7" Column="2" />
+      <File FileName="ECommerce/Exceptions/BadRequestException.cs" Line="7" Column="2" />
+      <File FileName="ECommerce/Controllers/AuthController.cs" Line="13" Column="41" />
+      <File FileName="ECommerce/Controllers/OrderController.cs" Line="85" Column="2" />
+      <File FileName="ECommerce/Controllers/ProductController.cs" Line="91" Column="2" />
+      <File FileName="ECommerce/Controllers/UserController.cs" Line="39" Column="56" />
+      <File FileName="ECommerce/appsettings.json" Line="12" Column="2" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="ECommerce" expanded="True">
+            <Node name="ECommerce" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.ECommerce PreferredExecutionTarget="/Applications/Google Chrome.app" FirstBuild="True" />
+</Properties>

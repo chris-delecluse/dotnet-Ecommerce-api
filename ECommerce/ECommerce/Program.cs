@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿using ECommerce.Config;
 using ECommerce.DataAccess;
 using ECommerce.Repositories;
 using ECommerce.Services;
@@ -6,12 +6,9 @@ using ECommerce.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddControllers().AddJsonOptions(GlobalConfig.GetJsonOptions());
 
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.WriteIndented = true;
-    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-});
+builder.Services.AddAuthentication().AddJwtBearer(GlobalConfig.GetTokenValidationOptions());
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -42,6 +39,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

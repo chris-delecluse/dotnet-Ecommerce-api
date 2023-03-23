@@ -5,6 +5,7 @@ using ECommerce.Models;
 using ECommerce.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ECommerce.Controllers;
 
@@ -19,7 +20,7 @@ public class ProductController : ControllerBase
         _productService = productService;
     }
 
-    [HttpGet]
+    [HttpGet, Authorize]
     public async Task<ActionResult<ResQueryDto<IEnumerable<Product>>>> Get()
     {
         IEnumerable<Product> products = await _productService.GetAll();

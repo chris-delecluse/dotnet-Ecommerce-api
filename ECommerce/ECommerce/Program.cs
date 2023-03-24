@@ -5,6 +5,9 @@ using ECommerce.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Custom configuration
+GlobalConfig.InitializeConfig(builder.Configuration);
+
 // Add services to the container.
 builder.Services.AddControllers().AddJsonOptions(GlobalConfig.GetJsonOptions());
 

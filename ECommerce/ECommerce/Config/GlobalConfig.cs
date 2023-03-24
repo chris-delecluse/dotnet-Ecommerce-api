@@ -6,7 +6,14 @@ namespace ECommerce.Config;
 
 public static class GlobalConfig
 {
-    public static Action<JwtBearerOptions> GetTokenValidationOptions() => _JwtOptions.ForTokenValidation();
+    private static IConfiguration? _configuration;
+
+    public static void InitializeConfig(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+
+    public static Action<JwtBearerOptions> GetTokenValidationOptions() => _JwtOptions.ForTokenValidation(_configuration!);
 
     public static Action<JsonOptions> GetJsonOptions() => _JsonOptions.ForJsonOptions();
 

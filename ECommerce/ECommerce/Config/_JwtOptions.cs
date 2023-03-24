@@ -6,14 +6,14 @@ namespace ECommerce.Config;
 
 public static class _JwtOptions
 {
-    public static Action<JwtBearerOptions> ForTokenValidation() => options =>
+    public static Action<JwtBearerOptions> ForTokenValidation(IConfiguration configuration) => options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
-            ValidIssuer = "http://localhost:5500",
+            ValidIssuer = configuration.GetValue<string>("Jwt:Issuer"),
             ValidateAudience = true,
-            ValidAudience = "http://localhost:5500",
+            ValidAudience = configuration.GetValue<string>("Jwt:Audience"),
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes("mySuperSecretKey")),

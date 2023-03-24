@@ -15,8 +15,9 @@ public static class _JwtOptions
             ValidateAudience = true,
             ValidAudience = configuration.GetValue<string>("Jwt:Audience"),
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes("mySuperSecretKey")),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                configuration.GetValue<string>("Jwt:Key")!)
+            ),
             ValidateLifetime = true,
             ClockSkew = TimeSpan.Zero
         };

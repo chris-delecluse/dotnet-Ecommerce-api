@@ -17,20 +17,20 @@ builder.Services.AddAuthentication().AddJwtBearer(GlobalConfig.GetTokenValidatio
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(GlobalConfig.GetSwaggerGenOptions());
 
-builder.Services.AddDbContext<DatabaseContext>();
+builder.Services.AddSingleton<DatabaseContext>();
 
-builder.Services.AddScoped<UserRepository>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddSingleton<UserRepository>();
+builder.Services.AddSingleton<IAuthService, AuthService>();
+builder.Services.AddSingleton<IUserService, UserService>();
+builder.Services.AddSingleton<IUserRepository, UserRepository>();
 
-builder.Services.AddScoped<ProductRepository>();
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddSingleton<ProductRepository>();
+builder.Services.AddSingleton<IProductService, ProductService>();
+builder.Services.AddSingleton<IProductRepository, ProductRepository>();
 
-builder.Services.AddScoped<OrderRepository>();
-builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddSingleton<OrderRepository>();
+builder.Services.AddSingleton<IOrderService, OrderService>();
+builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
 
 var app = builder.Build();
 

@@ -6,6 +6,7 @@ using ECommerce.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ECommerce.Controllers;
 
@@ -23,6 +24,7 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<ResQueryDto<List<OrderProduct>>>> Get()
     {
         IEnumerable<OrderProduct> orderProducts = await _orderService.GetAllOrderProduct();
@@ -33,6 +35,7 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<ActionResult<ResQueryDto<List<OrderProduct>>>> GetOne(Guid id)
     {
         try
@@ -57,6 +60,7 @@ public class OrderController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<ResMutationDto<Order>>> Create(OrderDto dto)
     {
         try

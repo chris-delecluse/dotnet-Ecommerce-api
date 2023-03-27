@@ -1,7 +1,7 @@
-﻿using System;
-using ECommerce.Dto;
+﻿using ECommerce.Dto;
 using ECommerce.Exceptions;
 using ECommerce.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Controllers;
@@ -18,12 +18,13 @@ public class AuthenticationController : ControllerBase
     }
 
     [HttpPost]
+    [AllowAnonymous]
     public async Task<ActionResult<ResAuthDto>> LocalSignIn(AuthDto dto)
     {
         try
         {
             ResAuthDto response = await _authService.LocalSignin(dto);
-
+            
             return Ok(response);
         }
         catch (BadRequestException e)

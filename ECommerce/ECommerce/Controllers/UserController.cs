@@ -5,6 +5,7 @@ using ECommerce.Models;
 using ECommerce.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ECommerce.Controllers;
 
@@ -20,6 +21,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<ResQueryDto<List<User>>>> GetAll()
     {
         IEnumerable<User> users = await _userService.GetAll();
@@ -30,6 +32,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{email}")]
+    [Authorize]
     public async Task<ActionResult<ResQueryDto<User>>> GetOneByEmail(string email)
     {
         try
@@ -51,6 +54,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<ResMutationDto<User>>> Create(UserDto dto)
     {
         try

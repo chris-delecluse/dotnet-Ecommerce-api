@@ -22,7 +22,7 @@ public class AuthService : IAuthService
     {
         if (string.IsNullOrWhiteSpace(dto.Email))
             throw RequestProblemException.ForMissingField(nameof(dto.Email));
-
+        
         if (string.IsNullOrWhiteSpace(dto.Password))
             throw RequestProblemException.ForMissingField(nameof(dto.Password));
 
@@ -34,7 +34,8 @@ public class AuthService : IAuthService
             .AddClaim(ClaimTypes.NameIdentifier, user.Id.ToString())
             .AddClaim(ClaimTypes.Email, user.Email!)
             .AddClaim(ClaimTypes.Role, "user role blabla...test!")
-            .SetExpiration(DateTime.Now.AddMinutes(1))
+            .AddClaim("csrfToken", "helloworldtest")
+            .SetExpiration(DateTime.Now.AddMinutes(30))
             .Build();
 
         string refreshToken = new JwtTokenBuilder(_configuration.GetValue<string>("Jwt:Key")!)

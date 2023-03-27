@@ -31,6 +31,16 @@ public class UserService : IUserService
         return user;
     }
 
+    public async Task<User?> GetOneByGuid(Guid id)
+    {
+        User? user = await _userRepository.GetOneByGuid(id);
+
+        if (user is null)
+            throw RequestProblemException.ForNotFound(id.ToString());
+
+        return user;
+    }
+
     public async Task<User> InsertOne(UserDto dto)
     {
         if (!IsValidEmail(dto.Email))

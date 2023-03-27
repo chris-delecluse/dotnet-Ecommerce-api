@@ -1,10 +1,10 @@
-﻿using System;
-using ECommerce.Dto;
+﻿using ECommerce.Dto;
 using ECommerce.Exceptions;
 using ECommerce.Models;
 using ECommerce.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using ECommerce.Helpers.Attributes;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ECommerce.Controllers;
@@ -20,7 +20,8 @@ public class ProductController : ControllerBase
         _productService = productService;
     }
 
-    [HttpGet, Authorize]
+    [HttpGet]
+    [ValidateRefreshToken]
     public async Task<ActionResult<ResQueryDto<IEnumerable<Product>>>> Get()
     {
         IEnumerable<Product> products = await _productService.GetAll();
@@ -53,6 +54,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<ResMutationDto<Product>>> Create(ProductDto dto)
     {
         try
@@ -70,6 +72,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPatch("{id}")]
+    [Authorize]
     public async Task<ActionResult<ResMutationDto<Product>>> UpdateOne(Guid id, UpdateProductDto dto)
     {
         try

@@ -10,10 +10,7 @@ public class ProductRepository : IProductRepository
 {
     private readonly DatabaseContext _dbContext;
 
-    public ProductRepository(DatabaseContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
+    public ProductRepository(DatabaseContext dbContext) => _dbContext = dbContext;
 
     public async Task<IEnumerable<Product>> GetAll()
     {

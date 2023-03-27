@@ -1,5 +1,6 @@
 ﻿using ECommerce.Config;
 using ECommerce.DataAccess;
+using ECommerce.Helpers;
 using ECommerce.Repositories;
 using ECommerce.Services;
 
@@ -32,6 +33,8 @@ builder.Services.AddSingleton<OrderRepository>();
 builder.Services.AddSingleton<IOrderService, OrderService>();
 builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
 
+builder.Services.AddFilters();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,6 +43,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//app.UseMiddleware<CustomMiddlewareDemo>();
 
 app.UseHttpsRedirection();
 

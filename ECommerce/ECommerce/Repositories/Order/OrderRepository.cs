@@ -9,11 +9,8 @@ public class OrderRepository : IOrderRepository
 {
     private readonly DatabaseContext _dbContext;
 
-    public OrderRepository(DatabaseContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
+    public OrderRepository(DatabaseContext dbContext) => _dbContext = dbContext;
+    
     public async Task<IEnumerable<OrderProduct>> GetAllOrderProduct()
     {
         IQueryable<OrderProduct> orderproducts = _dbContext.OrderProducts

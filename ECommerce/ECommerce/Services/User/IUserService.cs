@@ -8,5 +8,6 @@ public interface IUserService
 {
     Task<IEnumerable<User>> GetAll();
     Task<User?> GetOneByEmail(string email);
+    Task<User?> GetOneByGuid(Guid id);
     Task<User> InsertOne(UserDto dto);
 }

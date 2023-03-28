@@ -38,16 +38,7 @@ public class AuthService : IAuthService
             .SetExpiration(DateTime.Now.AddMinutes(30))
             .Build();
 
-        string refreshToken = new JwtTokenBuilder(_configuration.GetValue<string>("Jwt:Key")!)
-            .AddIssuer(_configuration.GetValue<string>("Jwt:Issuer")!)
-            .AddAudience(_configuration.GetValue<string>("Jwt:Audience")!)
-            .AddClaim(ClaimTypes.NameIdentifier, user.Id.ToString())
-            .AddClaim(ClaimTypes.Email, user.Email!)
-            .AddClaim(ClaimTypes.Role, "user role blabla...test!")
-            .SetExpiration(DateTime.Now.AddDays(10))
-            .Build();
-
-        return new ResAuthDto(accessToken, refreshToken);
+        return new ResAuthDto(accessToken, "refreshToken");
     }
 
     public async Task<User>? ValidateUser(AuthDto dto)

@@ -33,7 +33,6 @@ public class ValidateRefreshToken: TypeFilterAttribute
 
         public void OnResultExecuted(ResultExecutedContext context)
         {
-            Console.WriteLine("executed");
         }
     }
 }

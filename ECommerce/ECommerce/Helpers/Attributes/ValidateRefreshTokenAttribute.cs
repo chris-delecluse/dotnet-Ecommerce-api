@@ -27,7 +27,7 @@ public class ValidateRefreshToken: TypeFilterAttribute
             string a = context.HttpContext.User.FindFirstValue(ClaimTypes.Email)!;
 
             Task<User?> user = _userService.GetOneByEmail(a);
-
+            
             Console.WriteLine(user.Result!.Firstname);
         }
 

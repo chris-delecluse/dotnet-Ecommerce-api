@@ -8,19 +8,21 @@ public class User : IBaseModel
     [Key]
     public Guid Id { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Firstname is required")]
     public string? Firstname { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Lastname is required")]
     public string? Lastname { get; set; }
 
-    [Required]
+    [Required(ErrorMessage = "Email is required")]
     [EmailAddress]
     public string? Email { get; set; }
 
-    [Required]
     [MinLength(4)]
+    [Required(ErrorMessage = "Password is required")]
     public string? Password { get; set; }
 
     public byte[]? Salt { get; set; }
+    
+    public IEnumerable<RefreshToken>? RefreshTokens { get; set; }
 }

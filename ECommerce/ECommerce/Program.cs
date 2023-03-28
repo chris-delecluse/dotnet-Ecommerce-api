@@ -2,6 +2,7 @@
 using ECommerce.DataAccess;
 using ECommerce.Helpers;
 using ECommerce.Repositories;
+using ECommerce.Repositories.RefreshToken;
 using ECommerce.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(GlobalConfig.GetSwaggerGenOptions());
 
 builder.Services.AddSingleton<DatabaseContext>();
+
+//builder.Services.AddSingleton<RefreshTokenRepository>();
+builder.Services.AddSingleton<IRefreshTokenRepository, RefreshTokenRepository>();
 
 builder.Services.AddSingleton<UserRepository>();
 builder.Services.AddSingleton<IAuthService, AuthService>();

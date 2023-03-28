@@ -19,11 +19,11 @@ public class AuthenticationController : ControllerBase
 
     [HttpPost]
     [AllowAnonymous]
-    public async Task<ActionResult<ResAuthDto>> LocalSignIn(AuthDto dto)
+    public async Task<ActionResult<ResTokensDto>> LocalSignIn(AuthDto dto)
     {
         try
         {
-            ResAuthDto response = await _authService.LocalSignin(dto);
+            ResTokensDto response = await _authService.LocalSignin(dto);
             
             return Ok(response);
         }

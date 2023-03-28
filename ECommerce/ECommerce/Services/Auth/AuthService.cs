@@ -18,7 +18,7 @@ public class AuthService : IAuthService
         _userRepository = userRepository;
     }
 
-    public async Task<ResAuthDto> LocalSignin(AuthDto dto)
+    public async Task<ResTokensDto> LocalSignin(AuthDto dto)
     {
         if (string.IsNullOrWhiteSpace(dto.Email))
             throw RequestProblemException.ForMissingField(nameof(dto.Email));
@@ -38,7 +38,7 @@ public class AuthService : IAuthService
             .SetExpiration(DateTime.Now.AddMinutes(30))
             .Build();
 
-        return new ResAuthDto(accessToken, "refreshToken");
+        return new ResTokensDto(accessToken, "refreshToken");
     }
 
     public async Task<User>? ValidateUser(AuthDto dto)

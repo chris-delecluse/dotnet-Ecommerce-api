@@ -6,6 +6,6 @@ namespace ECommerce.Services;
 
 public interface IAuthService
 {
-    Task<ResAuthDto> LocalSignin(AuthDto dto);
+    Task<ResTokensDto> LocalSignin(AuthDto dto);
     public Task<User>? ValidateUser(AuthDto dto);
 }

@@ -7,6 +7,7 @@ namespace ECommerce.DataAccess;
 public class DatabaseContext : DbContext
 {
     public DbSet<User> User { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<Product> Product { get; set; }
     public DbSet<Order> Order { get; set; }
     public DbSet<OrderProduct> OrderProducts { get; set; }

@@ -1,5 +1,4 @@
-﻿using System;
-namespace ECommerce.Exceptions;
+﻿namespace ECommerce.Exceptions;
 
 public class InvalidCredentialException : RequestProblemException
 {

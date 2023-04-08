@@ -2,7 +2,6 @@
 using ECommerce.DataAccess;
 using ECommerce.Helpers;
 using ECommerce.Repositories;
-using ECommerce.Repositories.RefreshToken;
 using ECommerce.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +12,9 @@ GlobalConfig.InitializeConfig(builder.Configuration);
 // Add services to the container.
 builder.Services.AddControllers().AddJsonOptions(GlobalConfig.GetJsonOptions());
 
-builder.Services.AddAuthentication().AddJwtBearer(GlobalConfig.GetTokenValidationOptions());
+builder.Services.AddAuthentication()
+    .AddJwtBearer(GlobalConfig.GetTokenValidationOptions());
+    //.AddCookie(GlobalConfig.GetCookieAuthenticationOptions());
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -21,11 +22,9 @@ builder.Services.AddSwaggerGen(GlobalConfig.GetSwaggerGenOptions());
 
 builder.Services.AddSingleton<DatabaseContext>();
 
-//builder.Services.AddSingleton<RefreshTokenRepository>();
-builder.Services.AddSingleton<IRefreshTokenRepository, RefreshTokenRepository>();
+builder.Services.AddSingleton<IAuthService, AuthService>();
 
 builder.Services.AddSingleton<UserRepository>();
-builder.Services.AddSingleton<IAuthService, AuthService>();
 builder.Services.AddSingleton<IUserService, UserService>();
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 
@@ -36,6 +35,10 @@ builder.Services.AddSingleton<IProductRepository, ProductRepository>();
 builder.Services.AddSingleton<OrderRepository>();
 builder.Services.AddSingleton<IOrderService, OrderService>();
 builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
+
+builder.Services.AddSingleton<TokenRepository>();
+builder.Services.AddSingleton<ITokenService, TokenService>();
+builder.Services.AddSingleton<ITokenRepository, TokenRepository>();
 
 builder.Services.AddFilters();
 
@@ -52,6 +55,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCookiePolicy();
+
 app.UseAuthentication();
 
 app.UseAuthorization();
@@ -59,4 +64,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-

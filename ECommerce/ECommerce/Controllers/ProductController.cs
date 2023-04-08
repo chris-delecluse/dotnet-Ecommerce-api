@@ -4,7 +4,6 @@ using ECommerce.Models;
 using ECommerce.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using ECommerce.Helpers.Attributes;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ECommerce.Controllers;
@@ -21,25 +20,29 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet]
-    [ValidateRefreshToken]
-    public async Task<ActionResult<ResQueryDto<IEnumerable<Product>>>> Get()
+    public async Task<ActionResult<QueryDto<IEnumerable<Product>>>> Get()
     {
         IEnumerable<Product> products = await _productService.GetAll();
 
-        ResQueryDto<IEnumerable<Product>> response = new(products, products.Count());
+        if (Request.Cookies.TryGetValue("helloCookie", out string monCookieValue))
+        {
+            Console.WriteLine($"cookie: {monCookieValue}");
+        }
+        
+        QueryDto<IEnumerable<Product>> response = new(products, products.Count());
 
         return Ok(response);
     }
 
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<ResQueryDto<Product>>> GetOne(Guid id)
+    public async Task<ActionResult<QueryDto<Product>>> GetOne(Guid id)
     {
         try
         {
             Product? product = await _productService.GetOne(id);
 
-            ResQueryDto<Product> response = new(product!, 1);
+            QueryDto<Product> response = new(product!, 1);
 
             return Ok(response);
         }
@@ -55,13 +58,13 @@ public class ProductController : ControllerBase
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<ResMutationDto<Product>>> Create(ProductDto dto)
+    public async Task<ActionResult<MutationDto<Product>>> Create(ProductDto dto)
     {
         try
         {
             Product product = await _productService.InsertOne(dto);
 
-            ResMutationDto<Product> response = new("Resource added successfully", product);
+            MutationDto<Product> response = new("Resource added successfully", product);
 
             return Created($"/api/product/{product.Id}", response);
         }
@@ -73,13 +76,13 @@ public class ProductController : ControllerBase
 
     [HttpPatch("{id}")]
     [Authorize]
-    public async Task<ActionResult<ResMutationDto<Product>>> UpdateOne(Guid id, UpdateProductDto dto)
+    public async Task<ActionResult<MutationDto<Product>>> UpdateOne(Guid id, UpdateProductDto dto)
     {
         try
         {
             Product product = await _productService.UpdateOnePartially(id, dto);
 
-            ResMutationDto<Product> response = new("Resource updated succesffuly", product);
+            MutationDto<Product> response = new("Resource updated succesffuly", product);
 
             return Ok(response);
         }

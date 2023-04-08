@@ -1,4 +1,3 @@
-﻿using System;
-namespace ECommerce.Dto;
+﻿namespace ECommerce.Dto;
 
-public record OrderDto(IEnumerable<Guid> productIds);
+public record OrderDto(IEnumerable<Guid> ProductIds);

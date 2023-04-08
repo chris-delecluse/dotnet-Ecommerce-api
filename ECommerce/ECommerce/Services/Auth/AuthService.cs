@@ -1,5 +1,4 @@
-﻿using System.Security.Claims;
-using ECommerce.Dto;
+﻿using ECommerce.Dto;
 using ECommerce.Exceptions;
 using ECommerce.Helpers;
 using ECommerce.Models;
@@ -9,39 +8,43 @@ namespace ECommerce.Services;
 
 public class AuthService : IAuthService
 {
-    private readonly IConfiguration _configuration;
-    private readonly UserRepository _userRepository;
+    private readonly IUserRepository _userRepository;
+    private readonly ITokenService _tokenService;
 
-    public AuthService(IConfiguration configuration, UserRepository userRepository)
+
+    public AuthService(IUserRepository userRepository, ITokenService tokenService)
     {
-        _configuration = configuration;
         _userRepository = userRepository;
+        _tokenService = tokenService;
     }
 
-    public async Task<ResTokensDto> LocalSignin(AuthDto dto)
+    public async Task<AuthTokenDto> LocalSignin(HttpContext httpContext, LoginDto dto)
     {
         if (string.IsNullOrWhiteSpace(dto.Email))
             throw RequestProblemException.ForMissingField(nameof(dto.Email));
-        
+
         if (string.IsNullOrWhiteSpace(dto.Password))
             throw RequestProblemException.ForMissingField(nameof(dto.Password));
 
         User? user = await ValidateUser(dto)!;
 
-        string accessToken = new JwtTokenBuilder(_configuration.GetValue<string>("Jwt:Key")!)
-            .AddIssuer(_configuration.GetValue<string>("Jwt:Issuer")!)
-            .AddAudience(_configuration.GetValue<string>("Jwt:Audience")!)
-            .AddClaim(ClaimTypes.NameIdentifier, user.Id.ToString())
-            .AddClaim(ClaimTypes.Email, user.Email!)
-            .AddClaim(ClaimTypes.Role, "user role blabla...test!")
-            .AddClaim("csrfToken", "helloworldtest")
-            .SetExpiration(DateTime.Now.AddMinutes(30))
-            .Build();
+        string accessToken = _tokenService.GenerateAccessToken(user);
 
-        return new ResTokensDto(accessToken, "refreshToken");
+        RefreshToken refreshToken = new()
+        {
+            User = user,
+            Token = _tokenService.GenerateRefreshToken(),
+            ExpireIn = DateTime.Now.AddDays(7)
+        };
+
+        await _tokenService.InsertOne(refreshToken);
+
+        _tokenService.SetCookieRefreshToken(httpContext.Response, refreshToken.Token);
+
+        return new AuthTokenDto(accessToken);
     }
 
-    public async Task<User>? ValidateUser(AuthDto dto)
+    public async Task<User>? ValidateUser(LoginDto dto)
     {
         User? user = await _userRepository.GetOneByEmail(dto.Email!);
 
@@ -52,5 +55,15 @@ public class AuthService : IAuthService
             throw RequestProblemException.ForInvalidCredentials();
 
         return user;
+    }
+
+    public Task<User> LogoutUser()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<User> LogoutUserFromAllSessions()
+    {
+        throw new NotImplementedException();
     }
 }

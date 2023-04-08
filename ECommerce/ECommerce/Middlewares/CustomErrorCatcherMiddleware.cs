@@ -3,11 +3,11 @@
 //
 // namespace ECommerce.Middlewares;
 //
-// public class CustomMiddlewareDemo
+// public class CustomErrorCatcherMiddleware
 // {
 //     private readonly RequestDelegate _next;
 //
-//     public CustomMiddlewareDemo(RequestDelegate next)
+//     public CustomErrorCatcherMiddleware(RequestDelegate next)
 //     {
 //         _next = next;
 //     }

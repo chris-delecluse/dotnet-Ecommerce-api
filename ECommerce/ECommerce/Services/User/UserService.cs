@@ -41,22 +41,22 @@ public class UserService : IUserService
         return user;
     }
 
-    public async Task<User> InsertOne(UserDto dto)
+    public async Task<User> InsertOne(UserCreationDto creationDto)
     {
-        if (!IsValidEmail(dto.Email))
-            throw RequestProblemException.ForInvalidField(dto.Email);
+        if (!IsValidEmail(creationDto.Email))
+            throw RequestProblemException.ForInvalidField(creationDto.Email);
 
-        User? existingUser = await _userRepository.GetOneByEmail(dto.Email);
+        User? existingUser = await _userRepository.GetOneByEmail(creationDto.Email);
 
         if (existingUser is not null)
             throw RequestProblemException.ForConflictingItem(existingUser);
 
         User user = new()
         {
-            Firstname = dto.Firstname,
-            Lastname = dto.Lastname,
-            Email = dto.Email,
-            Password = HashHandler.HashUserPassword(dto.Password, out var salt),
+            Firstname = creationDto.Firstname,
+            Lastname = creationDto.Lastname,
+            Email = creationDto.Email,
+            Password = HashHandler.HashUserPassword(creationDto.Password, out var salt),
             Salt = salt
         };
 

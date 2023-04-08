@@ -22,7 +22,7 @@ public class ProductRepository : IProductRepository
     public async Task<IEnumerable<Product>> GetManyByIds(OrderDto dto)
     {
         return await _dbContext.Product
-            .Where(p => dto.productIds.Contains(p.Id))
+            .Where(p => dto.ProductIds.Contains(p.Id))
             .ToListAsync();
     }
 

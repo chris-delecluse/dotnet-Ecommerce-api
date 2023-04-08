@@ -25,24 +25,24 @@ public class OrderController : ControllerBase
 
     [HttpGet]
     [Authorize]
-    public async Task<ActionResult<ResQueryDto<List<OrderProduct>>>> Get()
+    public async Task<ActionResult<QueryDto<List<OrderProduct>>>> Get()
     {
         IEnumerable<OrderProduct> orderProducts = await _orderService.GetAllOrderProduct();
 
-        ResQueryDto<List<OrderProduct>> response = new(orderProducts.ToList(), orderProducts.Count());
+        QueryDto<List<OrderProduct>> response = new(orderProducts.ToList(), orderProducts.Count());
 
         return Ok(response);
     }
 
     [HttpGet("{id}")]
     [Authorize]
-    public async Task<ActionResult<ResQueryDto<List<OrderProduct>>>> GetOne(Guid id)
+    public async Task<ActionResult<QueryDto<List<OrderProduct>>>> GetOne(Guid id)
     {
         try
         {
             IQueryable<OrderProduct> orderProduct = _orderService.GetBySameId(id);
 
-            ResQueryDto<List<OrderProduct>> response = new(
+            QueryDto<List<OrderProduct>> response = new(
                 await orderProduct.ToListAsync(),
                 orderProduct.Count()
             );
@@ -61,7 +61,7 @@ public class OrderController : ControllerBase
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<ResMutationDto<Order>>> Create(OrderDto dto)
+    public async Task<ActionResult<MutationDto<Order>>> Create(OrderDto dto)
     {
         try
         {
@@ -69,7 +69,7 @@ public class OrderController : ControllerBase
 
             Order order = await _orderService.InsertManyOrderProduct(products);
 
-            ResMutationDto<Order> response = new("Resource added successfully", order);
+            MutationDto<Order> response = new("Resource added successfully", order);
 
             return Created("", response);
         }

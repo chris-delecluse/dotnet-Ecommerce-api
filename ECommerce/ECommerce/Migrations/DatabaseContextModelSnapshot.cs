@@ -115,7 +115,7 @@ namespace ECommerce.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RefreshToken");
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("ECommerce.Models.User", b =>

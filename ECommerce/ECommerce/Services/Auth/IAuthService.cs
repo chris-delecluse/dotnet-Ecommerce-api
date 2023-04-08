@@ -6,6 +6,8 @@ namespace ECommerce.Services;
 
 public interface IAuthService
 {
-    Task<ResTokensDto> LocalSignin(AuthDto dto);
-    public Task<User>? ValidateUser(AuthDto dto);
+    Task<AuthTokenDto> LocalSignin(HttpContext httpContext, LoginDto dto);
+    Task<User>? ValidateUser(LoginDto dto);
+    Task<User> LogoutUser();
+    Task<User> LogoutUserFromAllSessions();
 }

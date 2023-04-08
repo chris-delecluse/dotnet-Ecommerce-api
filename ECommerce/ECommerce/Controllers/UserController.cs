@@ -22,24 +22,24 @@ public class UserController : ControllerBase
 
     [HttpGet]
     [Authorize]
-    public async Task<ActionResult<ResQueryDto<List<User>>>> GetAll()
+    public async Task<ActionResult<QueryDto<List<User>>>> GetAll()
     {
         IEnumerable<User> users = await _userService.GetAll();
 
-        ResQueryDto<List<User>> response = new(users.ToList(), users.Count());
+        QueryDto<List<User>> response = new(users.ToList(), users.Count());
 
         return Ok(response);
     }
 
     [HttpGet("{email}")]
     [Authorize]
-    public async Task<ActionResult<ResQueryDto<User>>> GetOneByEmail(string email)
+    public async Task<ActionResult<QueryDto<User>>> GetOneByEmail(string email)
     {
         try
         {
             User? user = await _userService.GetOneByEmail(email);
 
-            ResQueryDto<User> response = new(user!, 1);
+            QueryDto<User> response = new(user!, 1);
 
             return Ok(response);
         }
@@ -55,13 +55,13 @@ public class UserController : ControllerBase
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<ResMutationDto<User>>> Create(UserDto dto)
+    public async Task<ActionResult<MutationDto<User>>> Create(UserCreationDto creationDto)
     {
         try
         {
-            User newUser = await _userService.InsertOne(dto);
+            User newUser = await _userService.InsertOne(creationDto);
 
-            ResMutationDto<User> response = new("Resource added successfully", newUser);
+            MutationDto<User> response = new("Resource added successfully", newUser);
 
             return Created($"/api/user/{newUser.Id}", response);
         }

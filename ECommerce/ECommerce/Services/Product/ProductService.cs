@@ -25,12 +25,12 @@ public class ProductService : IProductService
 
     public async Task<IEnumerable<Product>> GetManyById(OrderDto dto)
     {
-        if (!dto.productIds.Any())
+        if (!dto.ProductIds.Any())
             throw RequestProblemException.ForMissingField("productIds");
 
         IEnumerable<Product> products = await _productRepository.GetManyByIds(dto);
 
-        if (dto.productIds.Count() != products.Count())
+        if (dto.ProductIds.Count() != products.Count())
             throw RequestProblemException.ForNotFound(nameof(Product));
 
         return products;
